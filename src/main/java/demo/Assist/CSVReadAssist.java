@@ -1,8 +1,6 @@
 package demo.Assist;
 
 import com.csvreader.CsvReader;
-import demo.Graph.Graph;
-import demo.Graph.NormalGraph;
 import demo.Graph.Quintuple;
 import demo.GraphEdge.GraphEdge;
 import demo.GraphEdge.NormalEdge;
@@ -10,7 +8,6 @@ import demo.GraphNode.GraphNode;
 import demo.GraphNode.NormalNode;
 import demo.GraphWeight.GraphWeight;
 import demo.GraphWeight.NormalWeight;
-import javafx.beans.binding.ObjectExpression;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -65,7 +62,7 @@ public class CSVReadAssist {
                 if (bottom == null) {
                     // 暂时没有以startNode为起点的边，那么直接创建、放入新元素就可以
                     bottom = new HashMap<String, Quintuple>();
-                    bottom.put(endNode, quintuple);
+                    bottom.put(endNode.getName(), quintuple);
                 } else {
                     // 已经存在以startNode为起点的边
 
@@ -78,43 +75,44 @@ public class CSVReadAssist {
                         tempQuintuple = new Quintuple();
                         tempWeight = new Vector();
                         tempWeight.add(weight);
-                        bottom.put(endNode, quintuple);
+                        bottom.put(endNode.getName(), quintuple);
                     } else {
                         // 如果已经存在以endNode 为终点的边，则需判断这次读入的权重是否已经存在，存在则更新，不存在则新加入
-                        tempWeight = tempQuintuple.getEdge1().getWeight();
+                        tempWeight = tempQuintuple.getEdge1().getWeightVector();
                         String tempWeightName;
                         // flag 用来表示tempWight是否被更新过
-                        boolean flag = false;
-                        for (int i = 0; i < tempWeight.size(); i++) {
-                            tempWeightName = ((GraphWeight) tempWeight.get(i)).getName();
-
-                            // 如果此次读入的权值的名字已经存在，则将原有的元素删掉，存入新读入的值。
-                            if (tempWeightName.equals(name)) {
-                                tempWeight.setElementAt(weight, i);
-                                flag = true;
-                                break;
-                            }
-                        }
-                        // 如果此次读入的权值的名字不存在，则将其加入
-                        if (!flag) {
-                            tempWeight.add(weight);
-                        }
+//                        boolean flag = false;
+//                        for (int i = 0; i < tempWeight.size(); i++) {
+//                            tempWeightName = ((GraphWeight) tempWeight.get(i)).getName();
+//
+//                            // 如果此次读入的权值的名字已经存在，则将原有的元素删掉，存入新读入的值。
+//                            if (tempWeightName.equals(name)) {
+//                                tempWeight.setElementAt(weight, i);
+//                                flag = true;
+//                                break;
+//                            }
+//                        }
+//                        // 如果此次读入的权值的名字不存在，则将其加入
+//                        if (!flag) {
+//                            tempWeight.add(weight);
+//                        }
+                        tempWeight.add(weight);
                         edge = new NormalEdge(startNode, endNode, tempWeight);
                         quintuple = new Quintuple(edge);
-                        bottom.put(endNode, quintuple);
+                        bottom.put(endNode.getName(), quintuple);
                     }
                 }
                 topGraph.put(startNode.getName(), bottom);
 //                System.out.println(edge.toString());
             }
-            printAll();
+            printAll(topGraph);
         } catch (IOException e) {
             e.printStackTrace();
         }
         return topGraph;
     }
 
-    public static void printAll() {
+    public static void printAll(HashMap topGraph) {
         // 遍历topGraph
         Iterator iterator = topGraph.entrySet().iterator();
         if (iterator == null) {
@@ -122,9 +120,16 @@ public class CSVReadAssist {
         }
         while (iterator.hasNext()) {
             Map.Entry entry = (Map.Entry) iterator.next();
-            Object key = entry.getKey();
-            Object value = entry.getValue();
-            System.out.println(value);
+            String key = (String) entry.getKey();
+            System.out.println(key+":");
+            HashMap value = (HashMap) entry.getValue();
+            Iterator bottomIterator = value.entrySet().iterator();
+            while(bottomIterator.hasNext()){
+                Map.Entry entry1 = (Map.Entry) bottomIterator.next();
+                String endName = (String) entry1.getKey();
+                Quintuple quintuple = (Quintuple) entry1.getValue();
+                System.out.println("\t"+quintuple.getEdge1());
+            }
         }
     }
 }

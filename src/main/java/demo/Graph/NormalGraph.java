@@ -1,6 +1,8 @@
 package demo.Graph;
 
 import java.util.HashMap;
+import java.util.Iterator;
+
 import demo.Assist.CSVReadAssist;
 
 /*
@@ -25,13 +27,8 @@ public class NormalGraph implements Graph {
         topGraph = new HashMap<String, HashMap>();
     }
 
-    public NormalGraph(HashMap<String, HashMap> topGraph, HashMap<String, Quintuple> bottomGraph) {
+    public NormalGraph(HashMap<String, HashMap> topGraph) {
         this.topGraph = topGraph;
-        this.bottomGraph = bottomGraph;
-    }
-
-    public HashMap<String, Quintuple> getBottomGraph() {
-        return bottomGraph;
     }
 
     public HashMap<String, HashMap> getTopGraph() {
@@ -50,6 +47,10 @@ public class NormalGraph implements Graph {
         return topGraph.size();
     }
 
+    public Iterator getGraphIterator() {
+        Iterator iterator = topGraph.entrySet().iterator();
+        return iterator;
+    }
 
     @Override
     public String toString() {

@@ -41,6 +41,13 @@ public class Quintuple {
     public GraphEdge getEdge2() {
         return edge2;
     }
+    
+    // 获得权值最小的一组边对应的五元组
+    public Quintuple getMinQuituple(){
+        GraphEdge edge1 = this.edge1.getMinEdge();
+        GraphEdge edge2 = this.edge2.getMinEdge();
+        return new Quintuple(edge1,edge2);
+    }
 
     @Override
     public String toString() {
