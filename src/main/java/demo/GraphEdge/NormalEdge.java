@@ -58,6 +58,10 @@ public class NormalEdge implements GraphEdge {
         return weightResult;
     }
 
+    public Vector getMinWeightGroup() {
+        return getMinWeightGroup(weight);
+    }
+
 
     public NormalEdge() {
         start = new NormalNode();
@@ -98,6 +102,8 @@ public class NormalEdge implements GraphEdge {
     public Vector getWeightVector() {
         return weight;
     }
+
+
 
     // 获得权值的综合值，目前为简单的和
     public double getMinResult(Vector<GraphWeight> weightVector) {
