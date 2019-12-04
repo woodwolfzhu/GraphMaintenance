@@ -52,6 +52,10 @@ public class NormalGraph implements Graph {
         return iterator;
     }
 
+    public boolean isGraphNull() {
+        return topGraph.isEmpty();
+    }
+
     @Override
     public String toString() {
 

@@ -9,4 +9,6 @@ public interface Graph {
     public int getSize();
     HashMap getTopGraph();
     Iterator getGraphIterator();
+    // 判断图中的topGraph是否为空
+    boolean isGraphNull();
 }
