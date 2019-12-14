@@ -51,7 +51,7 @@ public class MulOperator extends Operator {
                 Iterator quintupleEntryS = bottomMapS.entrySet().iterator();
                 while (quintupleEntryS.hasNext()) {
                     Map.Entry entryS = (Map.Entry) quintupleEntryS.next();
-                    String endName2 = (String) entryS.getValue();
+                    String endName2 = (String) entryS.getKey();
                     Quintuple quintupleS = (Quintuple) entryS.getValue();
 
                     // 判断这个endName2 与startName 是同一个点,是得话就直接跳过
@@ -103,8 +103,9 @@ public class MulOperator extends Operator {
                         // 选择2：放入一个新的bottomResult中
                         // 需要在论文中再看看，究竟是什么意思。
                         // 应该为 选择第2种方式
-                        quintupleR.setEdge1(edge);
-                        quintupleR.setEdge2(quintupleR.getEdge1());
+                        Quintuple resultQuintuple = new Quintuple();
+                        resultQuintuple.setEdge1(edge);
+                        resultQuintuple.setEdge2(quintupleR.getEdge1());
                         bottomResult.put(quintupleS.getEdge1().getEnd().getName(),quintupleR);
 
                     }
@@ -204,14 +205,15 @@ public class MulOperator extends Operator {
                         // 选择2：放入一个新的bottomResult中
                         // 需要在论文中再看看，究竟是什么意思。
                         // 应该为 选择第2种方式
-                        quintupleR.setEdge1(edge);
+                        Quintuple resultQuintuple = new Quintuple();
+                        resultQuintuple.setEdge1(edge);
 
                         if(flag) {
-                            quintupleR.setEdge2(quintupleR.getEdge2());
+                            resultQuintuple.setEdge2(quintupleR.getEdge2());
                         }else{
-                            quintupleR.setEdge2(quintupleS.getEdge2());
+                            resultQuintuple.setEdge2(quintupleS.getEdge2());
                         }
-                        bottomResult.put(quintupleS.getEdge1().getEnd().getName(),quintupleR);
+                        bottomResult.put(quintupleS.getEdge1().getEnd().getName(),resultQuintuple);
 
                     }
                 }
