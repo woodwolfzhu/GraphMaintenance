@@ -1,7 +1,9 @@
 import demo.Graph.Graph;
 import demo.Graph.NormalGraph;
 
-import demo.GraphOperator.*;
+import demo.GraphOperator.forDelete.UnionOperator;
+import demo.GraphOperator.forInsert.*;
+import demo.service.EdgeDelete;
 import demo.service.EdgeInsert;
 import org.junit.Before;
 import org.junit.Test;
@@ -72,4 +74,20 @@ public class test01 {
         System.out.println(result);
     }
 
+    @Test
+    public void edgeDeleteTest(){
+        NormalGraph normalGraph=new NormalGraph();
+        normalGraph.readGraphFile("G:\\Users\\Administrator\\GraphMaintenance\\src\\main\\resources\\delete_E.csv");
+        NormalGraph sdGraph = new NormalGraph();
+        sdGraph.readGraphFile("G:\\Users\\Administrator\\GraphMaintenance\\src\\main\\resources\\graph2.csv");
+        NormalGraph derta = new NormalGraph();
+        derta.readGraphFile("G:\\Users\\Administrator\\GraphMaintenance\\src\\main\\resources\\derta.csv");
+
+        Graph result = EdgeInsert.getResult(normalGraph, sdGraph, derta);
+        System.out.println(result);
+        System.out.println("==============================================================");
+
+        Graph result1 = EdgeDelete.getResult(normalGraph, (NormalGraph) result, derta);
+        System.out.println(result1);
+    }
 }

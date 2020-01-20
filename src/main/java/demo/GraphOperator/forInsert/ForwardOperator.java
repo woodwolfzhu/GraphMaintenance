@@ -1,4 +1,4 @@
-package demo.GraphOperator;
+package demo.GraphOperator.forInsert;
 
 import demo.Graph.Graph;
 import demo.Graph.NormalGraph;
@@ -13,7 +13,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Vector;
 
-public class BackWardOperator extends Operator {
+public class ForwardOperator extends Operator {
 
     public static Graph getResult(Graph R, Graph S,boolean flag) {
         // 新的topGraph,对应NormalGraph中的topGraph
@@ -63,8 +63,11 @@ public class BackWardOperator extends Operator {
                         Vector weightS = quintupleS.getEdge1().getMinWeightGroup();
                         Iterator iteratorR = weightR.iterator();
                         Iterator iteratorS = weightS.iterator();
-                        HashMap<String, GraphWeight> resultWeightHashMap = new HashMap<String, GraphWeight>();
+                        HashMap<String,GraphWeight> resultWeightHashMap = new HashMap<String, GraphWeight>();
 
+                        // 先将R这一条边的权值放入resultWeightHashMap中,之后再对resultWeightHashMap中的元素
+                        // 进行更新.
+                        // 这样做,就是以R中的权值为主导,R中有的权值才会被保存和更新
                         while(iteratorR.hasNext()){
                             GraphWeight wR= (GraphWeight) iteratorR.next();
                             resultWeightHashMap.put(wR.getName(),wR);
@@ -102,17 +105,17 @@ public class BackWardOperator extends Operator {
                         // 应该为 选择第2种方式
                         Quintuple resultQuintuple = new Quintuple();
                         resultQuintuple.setEdge1(edge);
-                        if(flag) {
-                            resultQuintuple.setEdge2(quintupleS.getEdge1());
+
+
+                        if (flag) {
+                            resultQuintuple.setEdge2(quintupleR.getEdge1());
                         }
                         bottomResult.put(quintupleS.getEdge1().getEnd().getName(),resultQuintuple);
 
                     }
                 }
             }
-            if(!bottomResult.isEmpty()) {
-                resultR.put(startName, bottomResult);
-            }
+            resultR.put(startName, bottomResult);
         }
         return new NormalGraph(resultR);
     }

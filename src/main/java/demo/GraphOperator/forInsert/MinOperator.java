@@ -1,9 +1,8 @@
-package demo.GraphOperator;
+package demo.GraphOperator.forInsert;
 
 import demo.Graph.Graph;
 import demo.Graph.NormalGraph;
 import demo.Graph.Quintuple;
-import demo.GraphEdge.GraphEdge;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -33,7 +32,9 @@ public class MinOperator extends Operator {
                 quintupleTrans =  quintuple.getMinQuituple();
                 bottomMap.put(endName,quintupleTrans);
             }
-            topGraph.put(startName,bottomMap);
+            if (!bottomMap.isEmpty()) {
+                topGraph.put(startName, bottomMap);
+            }
         }
         return new NormalGraph(topGraph);
     }

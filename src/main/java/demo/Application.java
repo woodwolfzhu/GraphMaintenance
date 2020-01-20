@@ -4,7 +4,7 @@ package demo;
 import demo.Assist.CSVReadAssist;
 import demo.Graph.Graph;
 import demo.Graph.NormalGraph;
-import demo.GraphOperator.MinOperator;
+import demo.GraphOperator.forInsert.MinOperator;
 
 public class Application {
 

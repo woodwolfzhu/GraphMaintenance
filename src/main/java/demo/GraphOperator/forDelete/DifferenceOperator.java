@@ -1,10 +1,11 @@
-package demo.GraphOperator;
+package demo.GraphOperator.forDelete;
 
 
 import com.google.common.collect.Sets;
 import demo.Graph.Graph;
 import demo.Graph.NormalGraph;
 import demo.Graph.Quintuple;
+import demo.GraphOperator.forInsert.Operator;
 
 import java.util.HashMap;
 import java.util.Iterator;

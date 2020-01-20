@@ -2,8 +2,8 @@ package demo.service;
 
 import demo.Graph.Graph;
 import demo.Graph.NormalGraph;
-import demo.Graph.NormalGraph;
-import demo.GraphOperator.*;
+import demo.GraphOperator.forDelete.UnionOperator;
+import demo.GraphOperator.forInsert.*;
 
 public class EdgeInsert {
 

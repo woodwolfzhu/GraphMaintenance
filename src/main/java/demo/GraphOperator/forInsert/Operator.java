@@ -1,4 +1,4 @@
-package demo.GraphOperator;
+package demo.GraphOperator.forInsert;
 
 import demo.Graph.Graph;
 

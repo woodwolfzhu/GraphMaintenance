@@ -1,4 +1,4 @@
-package demo.GraphOperator;
+package demo.GraphOperator.forInsert;
 
 import demo.Graph.Graph;
 import demo.Graph.NormalGraph;
@@ -106,7 +106,7 @@ public class MulOperator extends Operator {
                         Quintuple resultQuintuple = new Quintuple();
                         resultQuintuple.setEdge1(edge);
                         resultQuintuple.setEdge2(quintupleR.getEdge1());
-                        bottomResult.put(quintupleS.getEdge1().getEnd().getName(),quintupleR);
+                        bottomResult.put(quintupleS.getEdge1().getEnd().getName(),resultQuintuple);
 
                     }
                 }
