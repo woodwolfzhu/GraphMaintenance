@@ -1,9 +1,19 @@
 package demo.GraphWeight;
 
-public class NormalWeight implements GraphWeight {
+import java.io.Serializable;
+
+public class NormalWeight implements GraphWeight, Serializable {
 
     private String name;
     private double value;
+
+    public NormalWeight() {
+    }
+
+    public NormalWeight(String name, double value) {
+        this.name = name;
+        this.value = value;
+    }
 
     public void setName(String name) {
         this.name = name;

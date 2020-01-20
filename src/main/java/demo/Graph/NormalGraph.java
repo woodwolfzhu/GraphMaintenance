@@ -1,7 +1,9 @@
 package demo.Graph;
 
+import java.io.*;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import demo.Assist.CSVReadAssist;
 
@@ -32,7 +34,8 @@ public class NormalGraph implements Graph {
     }
 
     public HashMap<String, HashMap> getTopGraph() {
-        return topGraph;
+
+        return (HashMap<String, HashMap>) NormalGraph.clone(topGraph);
     }
 
     public void add(String key, HashMap value) {
@@ -48,7 +51,8 @@ public class NormalGraph implements Graph {
     }
 
     public Iterator getGraphIterator() {
-        Iterator iterator = topGraph.entrySet().iterator();
+        HashMap clone = (HashMap) NormalGraph.clone(topGraph);
+        Iterator iterator = clone.entrySet().iterator();
         return iterator;
     }
 
@@ -59,10 +63,43 @@ public class NormalGraph implements Graph {
     @Override
     public String toString() {
 
-        return "输出完毕";
+        Iterator iterator = topGraph.entrySet().iterator();
+        String result="\0";
+        while (iterator.hasNext()){
+            Map.Entry entry= (Map.Entry) iterator.next();
+            HashMap bottom = (HashMap) entry.getValue();
+            if(!bottom.isEmpty()){
+                Iterator iterator1 = bottom.entrySet().iterator();
+                while (iterator1.hasNext()){
+                    Map.Entry entry1 = (Map.Entry) iterator1.next();
+                    Quintuple quintuple = (Quintuple) entry1.getValue();
+                    result = result+quintuple.toString()+"\n"+"\n";
+                }
+            }
+        }
+        return result+"输出完毕";
     }
 
     public void readGraphFile(String filePath){
         topGraph=CSVReadAssist.read(filePath);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T extends Serializable> T clone(T obj) {
+        T clonedObj = null;
+        try {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ObjectOutputStream oos = new ObjectOutputStream(baos);
+            oos.writeObject(obj);
+            oos.close();
+
+            ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+            ObjectInputStream ois = new ObjectInputStream(bais);
+            clonedObj = (T) ois.readObject();
+            ois.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return clonedObj;
     }
 }

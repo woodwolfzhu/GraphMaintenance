@@ -7,12 +7,13 @@ import demo.GraphNode.GraphNode;
 import demo.GraphNode.NormalNode;
 import demo.GraphWeight.GraphWeight;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Vector;
 
-public class NormalEdge implements GraphEdge {
+public class NormalEdge implements GraphEdge, Serializable {
 
     private GraphNode start;
     private GraphNode end;

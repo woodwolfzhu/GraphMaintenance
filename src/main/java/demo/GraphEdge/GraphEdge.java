@@ -8,10 +8,7 @@ import java.util.Iterator;
 import java.util.Vector;
 
 public interface GraphEdge {
-    public void setEnd(GraphNode end);
-    public void setStart(GraphNode start);
-    public void setWeight(Vector weight);
-    public Iterator getWeightIterator();
+
     // 直接返回权重向量
     Vector getWeightVector();
     // 在所有权值中，得到最小的一组权值
@@ -21,7 +18,10 @@ public interface GraphEdge {
     double getMinResult(Vector<GraphWeight> weightVector);
     double getMinResult();
 
-
+    public void setEnd(GraphNode end);
+    public void setStart(GraphNode start);
+    public void setWeight(Vector weight);
+    public Iterator getWeightIterator();
 
     // 在所有权值中，得到最小的一组权值对应的边
     GraphEdge getMinEdge();

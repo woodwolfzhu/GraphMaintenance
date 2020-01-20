@@ -6,6 +6,7 @@ import demo.Graph.Quintuple;
 import demo.GraphEdge.GraphEdge;
 import demo.GraphEdge.NormalEdge;
 import demo.GraphWeight.GraphWeight;
+import demo.GraphWeight.NormalWeight;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -51,7 +52,7 @@ public class BackWardOperator extends Operator {
                     Quintuple quintupleS = (Quintuple) entryS.getValue();
 
                     // 判断这个endName2 与startName 是同一个点,是得话就直接跳过
-                    if (endName.equals(endName)) {
+                    if (endName2.equals(endName)) {
                         continue;
                     } else {
                         Quintuple quintupleR = (Quintuple) bottomEntryR.getValue();
@@ -73,8 +74,8 @@ public class BackWardOperator extends Operator {
                             GraphWeight wS = (GraphWeight) iteratorS.next();
                             if(resultWeightHashMap.get(wS.getName()) != null){
                                 double value = resultWeightHashMap.get(wS.getName()).getValue()+wS.getValue();
-                                wS.setValue(value);
-                                resultWeightHashMap.put(wS.getName(),wS);
+//                                wS.setValue(value);
+                                resultWeightHashMap.put(wS.getName(),new NormalWeight(wS.getName(),value));
                             }else{
                                 System.out.println("第二个参数给出的图中元素不完全，R中有元素未得到计算");
                                 continue;
@@ -109,7 +110,9 @@ public class BackWardOperator extends Operator {
                     }
                 }
             }
-            resultR.put(startName, bottomResult);
+            if(!bottomResult.isEmpty()) {
+                resultR.put(startName, bottomResult);
+            }
         }
         return new NormalGraph(resultR);
     }

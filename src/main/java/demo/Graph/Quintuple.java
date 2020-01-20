@@ -3,11 +3,13 @@ package demo.Graph;
 import demo.GraphEdge.GraphEdge;
 import demo.GraphEdge.NormalEdge;
 
+import java.io.Serializable;
+
 /*
  * 这里Quintuple 有两个GraphEdge变量
  * 本质上是为了模拟五元组的集合，三元组也能模拟
  * */
-public class Quintuple {
+public class Quintuple implements Serializable {
     private GraphEdge edge1;
     private GraphEdge edge2;
 
@@ -45,12 +47,14 @@ public class Quintuple {
     // 获得权值最小的一组边对应的五元组
     public Quintuple getMinQuituple(){
         GraphEdge edge1 = this.edge1.getMinEdge();
-        GraphEdge edge2 = this.edge2.getMinEdge();
+        if(edge2!= null) {
+            GraphEdge edge2 = this.edge2.getMinEdge();
+        }
         return new Quintuple(edge1,edge2);
     }
 
     @Override
     public String toString() {
-        return edge1.toString() + '\n' + edge2.toString();
+        return "{"+edge1.toString() + '\n' + edge2.toString()+"}";
     }
 }

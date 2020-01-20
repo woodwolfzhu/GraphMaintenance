@@ -55,7 +55,7 @@ public class MulOperator extends Operator {
                     Quintuple quintupleS = (Quintuple) entryS.getValue();
 
                     // 判断这个endName2 与startName 是同一个点,是得话就直接跳过
-                    if (endName.equals(endName)) {
+                    if (endName2.equals(startName)) {
                         continue;
                     } else {
                         Quintuple quintupleR = (Quintuple) bottomEntryR.getValue();

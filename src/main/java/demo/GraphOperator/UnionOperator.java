@@ -49,7 +49,7 @@ public class UnionOperator extends Operator {
         while (iteratorS.hasNext()) {
             Map.Entry entryS = (Map.Entry) iteratorS.next();
             if (!topGraphR.containsKey(entryS.getKey())) {
-                topGraphR.put(entryS.getKey(), entryS.getValue());
+                resultTopGraph.put(entryS.getKey(), entryS.getValue());
             }
         }
 

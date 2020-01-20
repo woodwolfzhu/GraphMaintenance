@@ -6,6 +6,7 @@ import demo.Graph.Quintuple;
 import demo.GraphEdge.GraphEdge;
 import demo.GraphEdge.NormalEdge;
 import demo.GraphWeight.GraphWeight;
+import demo.GraphWeight.NormalWeight;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -51,7 +52,7 @@ public class ForwardOperator extends Operator {
                     Quintuple quintupleS = (Quintuple) entryS.getValue();
 
                     // 判断这个endName2 与startName 是同一个点,是得话就直接跳过
-                    if (endName.equals(endName)) {
+                    if (endName2.equals(endName)) {
                         continue;
                     } else {
                         Quintuple quintupleR = (Quintuple) bottomEntryR.getValue();
@@ -64,6 +65,9 @@ public class ForwardOperator extends Operator {
                         Iterator iteratorS = weightS.iterator();
                         HashMap<String,GraphWeight> resultWeightHashMap = new HashMap<String, GraphWeight>();
 
+                        // 先将R这一条边的权值放入resultWeightHashMap中,之后再对resultWeightHashMap中的元素
+                        // 进行更新.
+                        // 这样做,就是以R中的权值为主导,R中有的权值才会被保存和更新
                         while(iteratorR.hasNext()){
                             GraphWeight wR= (GraphWeight) iteratorR.next();
                             resultWeightHashMap.put(wR.getName(),wR);
@@ -73,8 +77,8 @@ public class ForwardOperator extends Operator {
                             GraphWeight wS = (GraphWeight) iteratorS.next();
                             if(resultWeightHashMap.get(wS.getName()) != null){
                                 double value = resultWeightHashMap.get(wS.getName()).getValue()+wS.getValue();
-                                wS.setValue(value);
-                                resultWeightHashMap.put(wS.getName(),wS);
+//                                wS.setValue(value);
+                                resultWeightHashMap.put(wS.getName(),new NormalWeight(wS.getName(),value));
                             }else{
                                 System.out.println("第二个参数给出的图中元素不完全，R中有元素未得到计算");
                                 continue;
@@ -101,6 +105,8 @@ public class ForwardOperator extends Operator {
                         // 应该为 选择第2种方式
                         Quintuple resultQuintuple = new Quintuple();
                         resultQuintuple.setEdge1(edge);
+
+
                         if (flag) {
                             resultQuintuple.setEdge2(quintupleR.getEdge1());
                         }

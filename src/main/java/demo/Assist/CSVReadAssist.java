@@ -24,7 +24,7 @@ public class CSVReadAssist {
 
 
     // key为起点的名字，value 为edgeMap
-    private static HashMap<String, HashMap> topGraph = new HashMap<String, HashMap>();
+    private static HashMap<String, HashMap> topGraph;
 
     public static HashMap read(String filePath) {
         /*初始化，全部以三元组的形式读入Quintuple 中的第一个成员变量中
@@ -33,6 +33,7 @@ public class CSVReadAssist {
          必须得实现，现在就得实现，不然后面的运算符没法实现
          Weight类设置多个 权值，每有多出来一条边就给一个赋值*/
         try {
+            topGraph = new HashMap<String, HashMap>();
             CsvReader csvReader = new CsvReader(filePath);
 
             while (csvReader.readRecord()) {
@@ -105,7 +106,7 @@ public class CSVReadAssist {
                 topGraph.put(startNode.getName(), bottom);
 //                System.out.println(edge.toString());
             }
-            printAll(topGraph);
+//            printAll(topGraph);
         } catch (IOException e) {
             e.printStackTrace();
         }
